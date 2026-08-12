@@ -67,7 +67,8 @@ int main() {
     cout << "Total de productos vendidos por el buffet: "
          << totalBuffet << endl;
 
-
+    // cierro el archivot
+    
     fclose(f);
 
     return 0;
