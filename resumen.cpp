@@ -68,8 +68,10 @@ int main() {
          << totalBuffet << endl;
 
     // cierro el archivot
-    
+
     fclose(f);
+
+    
 
     return 0;
 }
