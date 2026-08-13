@@ -45,10 +45,6 @@ int main() {
 
                 totalBuffet += c.cantidad;
 
-                if(fread(&c, sizeof(Comanda), 1, f) != 1) {
-                    break;
-                }
-            }
 
             cout << "Mozo: " << idActual << endl;
 
