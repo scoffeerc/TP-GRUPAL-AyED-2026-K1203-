@@ -45,7 +45,10 @@ int main() {
 
                 totalBuffet += c.cantidad;
 
-
+                if(fread(&c, sizeof(Comanda), 1, f) != 1) {
+                    break;
+                };
+            };  
             cout << "Mozo: " << idActual << endl;
 
             cout << "Cantidad de productos vendidos: "
@@ -56,8 +59,8 @@ int main() {
 
             cout << endl;
 
-        }
-    }
+        };
+    };
 
 
     cout << "Total de productos vendidos por el buffet: "
