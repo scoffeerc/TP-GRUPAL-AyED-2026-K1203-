@@ -23,21 +23,28 @@ int main() {
 
     FILE* f = fopen("comandas_semana_s1-06.dat", "rb");
 
+    if (!f) {
+        cout << "Error: No se pudo abrir el archivo semanal." << endl;
+        return 1;
+    }
+
+
     Comanda c;
 
     int totalBuffet = 0;
+    
 
     if(fread(&c, sizeof(Comanda), 1, f) == 1) {
+    bool quedanRegistrosPorLeer = true;
 
-
-        while(true) {
+        while(quedanRegistrosPorLeer){
 
             int idActual = c.idMozo;
 
             int cantidadProductos = 0;
             float comisionTot = 0;
 
-            while(idActual == c.idMozo) {
+            while(quedanRegistrosPorLeer && idActual == c.idMozo) {
 
                 cantidadProductos += c.cantidad;
 
@@ -46,31 +53,23 @@ int main() {
                 totalBuffet += c.cantidad;
 
                 if(fread(&c, sizeof(Comanda), 1, f) != 1) {
-                    break;
+                    quedanRegistrosPorLeer = false;
                 };
             };  
             cout << "Mozo: " << idActual << endl;
-
-            cout << "Cantidad de productos vendidos: "
-                 << cantidadProductos << endl;
-
-            cout << "Comision total: "
-                 << comisionTot << endl;
-
+            cout << "Cantidad de productos vendidos: " << cantidadProductos << endl;
+            cout << "Comision total: $" << comisionTot << endl;
             cout << endl;
 
         };
-    };
+    } else {
+        cout << "El archivo esta vacio." << endl;
+    }
 
 
-    cout << "Total de productos vendidos por el buffet: "
-         << totalBuffet << endl;
-
-    // cierro el archivot
-
+    cout << "Total de productos vendidos por el buffet: " << totalBuffet << endl;
     fclose(f);
 
-    
 
     return 0;
 }
