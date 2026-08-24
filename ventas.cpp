@@ -1,3 +1,11 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+
+using namespace std;    
+
+
+
 struct Mozo {
     int idMozo;
     char nombre[8];     // Siempre char[], nunca string
@@ -11,3 +19,6 @@ struct Comanda {
     int cantidad;
     float comision;
 };
+
+
+
