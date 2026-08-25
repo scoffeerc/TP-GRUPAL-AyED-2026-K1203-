@@ -63,7 +63,7 @@ int main() {
             if (claveabuscar != m.password){
                 cout << "Clave incorrecta." << endl;
             }
-            cout << "Busque un producto: ";
+            cout << "Busque un producto por su código: ";
             cin >> codigoabuscar;
             if (codigoabuscar != p.codigo){
                 cout << "No hay producto." << endl;
