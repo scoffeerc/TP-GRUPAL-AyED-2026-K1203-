@@ -35,8 +35,6 @@ void encriptado(Mozo arr[], int len){
     }
 }
 
-const int K = 5;
-
 int main() {
     Producto p;
     Mozo m;
