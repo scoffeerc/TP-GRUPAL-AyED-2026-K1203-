@@ -28,9 +28,7 @@ struct Comanda {
     float comision;
 };
 
-int main()
-{
-    void encriptado(Mozo arr[], int len){
+void encriptado(Mozo arr[], int len){
     Mozo m;
     for(int i = 0; m.password[i] != '\0'; i++){
         m.password[i] = m.password[i] + K;
