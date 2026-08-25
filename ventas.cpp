@@ -58,7 +58,7 @@ int main() {
             if (idabuscar != m.idMozo){
                 cout << "El mozo no existe." << endl;
             }
-            cin >> m.idMozo;
+            cin >> idabuscar;
             cout << "Ingrese la clave del mozo: ";
             if (claveabuscar != m.password){
                 cout << "Clave incorrecta." << endl;
