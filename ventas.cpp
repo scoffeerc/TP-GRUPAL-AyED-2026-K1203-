@@ -5,9 +5,10 @@
 using namespace std;    
 
 const float TASA_COMISION = 0.10f; // 10% de la venta
-const int K = 5; // Constante de encriptación
+const int K = 5; // Constante fija para encriptar
 
-struct Producto {
+//Uso las structs que tengo predefinidas.
+struct Producto { 
     int codigo;
     char descripcion[50];
     float precio;
@@ -28,6 +29,7 @@ struct Comanda {
     float comision;
 };
 
+//Armo una función para que a la clave del mozo le sumemos un valor fijo.
 void encriptado(Mozo arr[], int len){
     Mozo m;
     for(int i = 0; m.password[i] != '\0'; i++){
@@ -39,7 +41,7 @@ int main() {
     Producto p;
     Mozo m;
     Comanda c;
-    FILE* e = fopen("mozos.dat", "rb+");
+    FILE* e = fopen("mozos.dat", "rb+"); 
     FILE* f = fopen("inventario_dat", "rb");
     int n = 20;
     Mozo claves[n];
