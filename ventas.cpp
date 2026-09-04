@@ -66,6 +66,8 @@ int main() {
     float preciobuscado;
     int idabuscar;
     int cantidadapedir;
+    int len = 300;
+    Comanda arr[len];
     while(fread(&m, sizeof(Mozo), 1, e) == 1 && fread(&f, sizeof(Producto), 1, f) == 1){
         cout << "Ingrese una fecha: ";
         cin >> fecha;
