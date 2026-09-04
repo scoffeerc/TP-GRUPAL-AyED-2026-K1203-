@@ -114,5 +114,6 @@ int main() {
     }
 
     fclose(e);
+    fclose(f);
     return 0;
 }
