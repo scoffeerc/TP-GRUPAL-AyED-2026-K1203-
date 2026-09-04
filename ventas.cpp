@@ -110,12 +110,12 @@ int main() {
 
             fseek(fseek(g, -(long)sizeof(Comanda), SEEK_CUR);
             fwrite(&c, sizeof(Comanda), 1, g);
-            ordenarpormozos(ids, len);
             fclose(g);
         }
         fwrite(&p, sizeof(Producto), 1, f);
     }
 
+    ordenarpormozos(ids, len);
     fclose(e);
     fclose(f);
     return 0;
