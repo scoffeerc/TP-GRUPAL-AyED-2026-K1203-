@@ -99,14 +99,14 @@ int main() {
             cout << "¿Cuántas unidades quiere del producto?: ";
             cin >> cantidadapedir;
 
-            if (p.cantidadapedir == p.stockactual){
-                
+            if (p.cantidadapedir < p.stockActual){
+                p.stockActual = p.stockActual - cantidadapedir;
+                c.cantidad = cantidadapedir;
+                float comisiontotal = p.precio*p.cantidadapedir*TASA_COMISION;
+                c.comision = comisiontotal;
+            }
+
             
-            float comisiontotal = p.precio*p.cantidadapedir*TASA_COMISION;
-            c.idMozo = idabuscar;
-            c.codigoProducto = codigoabuscar;
-            c.cantidad = cantidadapedir;
-            c.comision = comisiontotal;
             fwrite(&c, sizeof(Comanda), 1, g);
             ordenarpormozos(ids, len);
             fclose(g);
