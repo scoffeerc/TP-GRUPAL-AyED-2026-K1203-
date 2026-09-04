@@ -111,6 +111,7 @@ int main() {
             ordenarpormozos(ids, len);
             fclose(g);
         }
+        fwrite(&p, sizeof(Producto), 1, f);
     }
 
     fclose(e);
