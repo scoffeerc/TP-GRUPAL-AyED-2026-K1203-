@@ -29,7 +29,7 @@ struct Comanda {
     float comision;
 };
 
-//Armo una función para que a la clave del mozo le sumemos un valor fijo.
+//Armo una función para que a la clave del mozo le sumemos un valor fijo, en este caso K = 5.
 void encriptado(Mozo arr[], int len){
     Mozo m;
     for(int i = 0; m.password[i] != '\0'; i++){
@@ -63,29 +63,50 @@ int main() {
     char claveabuscar[20];
     encriptado(claves, n);
     int codigoabuscar;
+    float preciobuscado;
+    int idabuscar;
+    int cantidadapedir;
     while(fread(&m, sizeof(Mozo), 1, e) == 1 && fread(&f, sizeof(Producto), 1, f) == 1){
         cout << "Ingrese una fecha: ";
         cin >> fecha;
 
         if (fecha == "dd-mm-aaaa"){
             FILE* g = fopen("comandas_dd-mm-aaaa.dat", "rb+");
-            int idabuscar;
+
             cout << "Ingrese el número de mozo: ";
-            if (m.idabuscar != m.idMozo){
+            if (m.idabuscar == m.idMozo){
+                cin >> m.idabuscar;
+                c.idMozo = idabuscar;
+            } else {
                 cout << "El mozo no existe." << endl;
             }
-            cin >> m.idabuscar;
+
+            
             cout << "Ingrese la clave del mozo: ";
-            if (claveabuscar != m.password){
-                cout << "Clave incorrecta." << endl;
+            if (claveabuscar == m.password){
+                cin >> claveabuscar;
+            } else {
+                cout << "No existe la clave." << endl;
             }
+            
+            
             cout << "Busque un producto por su código: ";
-            cin >> codigoabuscar;
-            if (p.codigoabuscar != p.codigo){
-                cout << "No hay producto." << endl;
-            //
-            float comisiontotal = p.precio*c.cantidad*TASA_COMISION;
-            fseek(g, -(long)sizeof(Comanda), SEEK_CUR);
+            if (p.codigoabuscar == p.codigo){
+                cin >> p.codigoabuscar;
+                c.codigoProducto = codigoabuscar;
+            } 
+
+            cout << "¿Cuántas unidades quiere del producto?: ";
+            cin >> cantidadapedir;
+
+            if (p.cantidadapedir == p.stockactual){
+                
+            
+            float comisiontotal = p.precio*p.cantidadapedir*TASA_COMISION;
+            c.idMozo = idabuscar;
+            c.codigoProducto = codigoabuscar;
+            c.cantidad = cantidadapedir;
+            c.comision = comisiontotal;
             fwrite(&c, sizeof(Comanda), 1, g);
             ordenarpormozos(ids, len);
             fclose(g);
