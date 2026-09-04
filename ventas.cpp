@@ -108,7 +108,7 @@ int main() {
                 c.comision = comisiontotal;
             }
 
-            fseek(fseek(g, -(long)sizeof(Comanda), SEEK_CUR);
+            fseek(g, -(long)sizeof(Comanda), SEEK_CUR);
             fwrite(&c, sizeof(Comanda), 1, g);
             fclose(g);
         }
