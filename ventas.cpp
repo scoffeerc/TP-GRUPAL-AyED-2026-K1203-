@@ -37,24 +37,6 @@ void encriptado(Mozo arr[], int len){
     }
 }
 
-long busquedabinaria(const char* nombre, int clave, Producto& p) {
-    FILE* f = fopen(nombre, "rb");
-    if (f == NULL) return -1;
-    fseek(f, 0, SEEK_END);
-    long n = ftell(f) / sizeof(Producto); // cantidad de registros
-    long pri = 0, ult = n - 1, pos = -1;
-    while (pri <= ult && pos == -1) {
-        long med = (pri + ult) / 2;
-        fseek(f, med * sizeof(Producto), SEEK_SET);
-        fread(&p, sizeof(Producto), 1, f);
-        if (p.codigo == clave) pos = med;
-        else if (clave > p.codigo) pri = med + 1;
-        else ult = med - 1;
-    }
-    fclose(f);
-    return pos;
-}
-
 void ordenarpormozos(Comanda arr[], int len) { /*Ordenamiento de burbuja*/
     for (int i = 0; i < len; i++) {
         for (int j = 0; j < len - i - 1; j++) {
@@ -102,7 +84,6 @@ int main() {
             if (p.codigoabuscar != p.codigo){
                 cout << "No hay producto." << endl;
             //
-            busquedabinaria("inventario.dat", p.precio, p);
             float comisiontotal = p.precio*c.cantidad*0.10;
             fseek(g, -(long)sizeof(Comanda), SEEK_CUR);
             fwrite(&c, sizeof(Comanda), 1, g);
