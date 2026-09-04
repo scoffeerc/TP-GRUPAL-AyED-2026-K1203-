@@ -80,14 +80,14 @@ int main() {
     char fecha[30];
     char claveabuscar[20];
     encriptado(claves, n);
-    p.codigoabuscar;
+    int codigoabuscar;
     while(fread(&m, sizeof(Mozo), 1, e) == 1 && fread(&f, sizeof(Producto), 1, f) == 1){
         cout << "Ingrese una fecha: ";
         cin >> fecha;
 
         if (fecha == "dd-mm-aaaa"){
             FILE* g = fopen("comandas_dd-mm-aaaa.dat", "rb+");
-            m.idabuscar;
+            int idabuscar;
             cout << "Ingrese el número de mozo: ";
             if (m.idabuscar != m.idMozo){
                 cout << "El mozo no existe." << endl;
@@ -98,7 +98,7 @@ int main() {
                 cout << "Clave incorrecta." << endl;
             }
             cout << "Busque un producto por su código: ";
-            cin >> p.codigoabuscar;
+            cin >> codigoabuscar;
             if (p.codigoabuscar != p.codigo){
                 cout << "No hay producto." << endl;
             //
