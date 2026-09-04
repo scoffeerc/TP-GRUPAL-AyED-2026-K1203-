@@ -80,26 +80,26 @@ int main() {
     char fecha[30];
     char claveabuscar[20];
     encriptado(claves, n);
-    int codigoabuscar;
+    p.codigoabuscar;
     while(fread(&m, sizeof(Mozo), 1, e) == 1 && fread(&f, sizeof(Producto), 1, f) == 1){
         cout << "Ingrese una fecha: ";
         cin >> fecha;
 
         if (fecha == "dd-mm-aaaa"){
             FILE* g = fopen("comandas_dd-mm-aaaa.dat", "rb+");
-            int idabuscar;
+            m.idabuscar;
             cout << "Ingrese el número de mozo: ";
-            if (idabuscar != m.idMozo){
+            if (m.idabuscar != m.idMozo){
                 cout << "El mozo no existe." << endl;
             }
-            cin >> idabuscar;
+            cin >> m.idabuscar;
             cout << "Ingrese la clave del mozo: ";
             if (claveabuscar != m.password){
                 cout << "Clave incorrecta." << endl;
             }
             cout << "Busque un producto por su código: ";
-            cin >> codigoabuscar;
-            if (codigoabuscar != p.codigo){
+            cin >> p.codigoabuscar;
+            if (p.codigoabuscar != p.codigo){
                 cout << "No hay producto." << endl;
             //
             busquedabinaria("inventario.dat", p.precio, p);
