@@ -103,7 +103,7 @@ int main() {
                 cout << "No hay producto." << endl;
             //
             busquedabinaria("inventario.dat", p.precio, p);
-            float comisiontotal = p.precio*0.10;
+            float comisiontotal = p.precio*c.cantidad*0.10;
             fseek(g, -(long)sizeof(Comanda), SEEK_CUR);
             fwrite(&c, sizeof(Comanda), 1, g);
             ordenarpormozos(ids, len);
