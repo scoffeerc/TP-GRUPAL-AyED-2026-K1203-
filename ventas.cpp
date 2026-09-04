@@ -84,7 +84,7 @@ int main() {
             if (p.codigoabuscar != p.codigo){
                 cout << "No hay producto." << endl;
             //
-            float comisiontotal = p.precio*c.cantidad*0.10;
+            float comisiontotal = p.precio*c.cantidad*TASA_COMISION;
             fseek(g, -(long)sizeof(Comanda), SEEK_CUR);
             fwrite(&c, sizeof(Comanda), 1, g);
             ordenarpormozos(ids, len);
