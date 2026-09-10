@@ -27,15 +27,26 @@ int main (){
         cin >> fecha;
 
         char nombreArchivo[30];
-        strcpy(nombreArchivo, "comandas_");
+        int pos = 0;
 
-        int len = 0;
-        while (nombreArchivo[len] != '\0') len++; // busco donde termina lo ya escrito
-        strcpy(nombreArchivo + len, fecha);        // sigo escribiendo desde ahi
+        const char* prefijo = "comandas_";
+        for (int k = 0; prefijo[k] != '\0'; k++) {
+                nombreArchivo[pos] = prefijo[k];
+                pos++;
+        }
 
-        len = 0;// hago lo mismo con el ".dat"
-        while (nombreArchivo[len] != '\0') len++;
-        strcpy(nombreArchivo + len, ".dat");
+        for (int k = 0; fecha[k] != '\0'; k++) {
+            nombreArchivo[pos] = fecha[k];
+            pos++;
+        }
+
+        const char* sufijo = ".dat";
+        for (int k = 0; sufijo[k] != '\0'; k++) {
+            nombreArchivo[pos] = sufijo[k];
+            pos++;
+        }
+
+        nombreArchivo[pos] = '\0';
 
         FILE* fDia = fopen(nombreArchivo, "rb");
         if (fDia == NULL){
@@ -76,24 +87,35 @@ cin >> semana;
 cout << "Mes (ej 06): ";
 cin >> mes;
 
-char nombreSemanal [40];
-strcpy(nombreSemanal, "comandas_semana_s");
+char nombreSemanal[40];
+int posS = 0;
 
-    int lenS = 0;
-    while (nombreSemanal[lenS] != '\0') lenS++;
-    strcpy(nombreSemanal + lenS, semana);
+const char* prefijoSemanal = "comandas_semana_s";
+for (int k = 0; prefijoSemanal[k] != '\0'; k++) {
+    nombreSemanal[posS] = prefijoSemanal[k];
+    posS++;
+}
 
-    lenS = 0;
-    while (nombreSemanal[lenS] != '\0') lenS++;
-    strcpy(nombreSemanal + lenS, "-");
+for (int k = 0; semana[k] != '\0'; k++) {
+    nombreSemanal[posS] = semana[k];
+    posS++;
+}
 
-    lenS = 0;
-    while (nombreSemanal[lenS] != '\0') lenS++;
-    strcpy(nombreSemanal + lenS, mes);
+nombreSemanal[posS] = '-';
+posS++;
 
-    lenS = 0;
-    while (nombreSemanal[lenS] != '\0') lenS++;
-    strcpy(nombreSemanal + lenS, ".dat");
+for (int k = 0; mes[k] != '\0'; k++) {
+    nombreSemanal[posS] = mes[k];
+    posS++;
+}
+
+const char* sufijoSemanal = ".dat";
+for (int k = 0; sufijoSemanal[k] != '\0'; k++) {
+    nombreSemanal[posS] = sufijoSemanal[k];
+    posS++;
+}
+
+nombreSemanal[posS] = '\0';
 
 FILE* fSemana = fopen(nombreSemanal, "wb");
 for (int i=0; i < cantTotal; i++) {
