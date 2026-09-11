@@ -4,4 +4,4 @@ Integrantes:
 - Piñero, Santiago José.
 - Cedermas, Valentín Tomás.
 - Pacheco Lopez, Tobias.
-- Huaygua Siles, Mariano Daniel
+- Dermisache, Lautaro Gabriel.
