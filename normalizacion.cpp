@@ -48,9 +48,25 @@ void otroCodigo(char password[]) {
 };
 
 
-int buscarIdMozo(Mozo lista[], int &cantidadMozos, char nombreBuscado[]){};
+int buscarIdMozo(Mozo lista[], int &cantidadMozos, char nombreBuscado[]){
+    for (int i = 0; i< cantidadMozos; i++){
+        if (strcmp(lista[i].nombre, nombreBuscado) ==0)
+        {
+           return lista[i].idMozo;  // encontro el mozo devuelve su id. /* code */
+        }
+        
+    }
+    // si el mozo es nuevo tengo que agregarlo.
+    int nuevoid = cantidadMozos + 1; 
+    lista[cantidadMozos].idMozo = nuevoid;  // le da un id al mozo intercambiandolo por su nombre 
+    strcpy(lista[cantidadMozos].nombre, nombreBuscado);  
+    lista[cantidadMozos].totalComision = 0; 
+    cantidadMozos++;
 
-long buscarProducto(FILE* f, int codigoBuscado, Producto p){};
+    return nuevoid; 
+};
+
+long buscarProducto(FILE* f, int codigoBuscado, Producto &p){};
 
 int main() {
 
