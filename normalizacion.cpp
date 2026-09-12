@@ -66,7 +66,35 @@ int buscarIdMozo(Mozo lista[], int &cantidadMozos, char nombreBuscado[]){
     return nuevoid; 
 };
 
-long buscarProducto(FILE* f, int codigoBuscado, Producto &p){};
+long buscarProducto(FILE* f, int codigoBuscado, Producto &p){
+
+    fseek(f, 0, SEEK_END);
+    long n = ftell(f) / sizeof(Producto);   // Es la cantidad de productos en el archivo 
+
+    long pri = 0, ult = n - 1, pos = -1;
+
+    while (pri <= ult && pos == -1)
+    {
+        long med = (pri + ult) / 2;
+        fseek(f, med * sizeof(Producto), SEEK_SET);
+        fread(&p, sizeof(Producto), 1, f);
+
+        if (p.codigo == codigoBuscado)
+        {
+            pos = med;
+        }
+        else if (codigoBuscado > p.codigo)
+        {
+            pri = med + 1;
+        }
+        else
+        {
+            ult = med - 1;
+        }
+    }
+
+    return pos;   // -1 si no se encuntra, o la posicion del producto en el archivo en caso contrario 
+};
 
 int main() {
 
@@ -90,6 +118,13 @@ int main() {
         
         long posProducto = buscarProducto(fInvt, comandaHist.codigoProducto, prod);
 
+        if (posProducto != -1)
+{
+    prod.stockActual -= comandaHist.cantidad;
+    fseek(fInvt, posProducto * sizeof(Producto), SEEK_SET);   // vuelvo a esa posición
+    fwrite(&prod, sizeof(Producto), 1, fInvt);                  // grabo el stock actualizado
+}
+
         // actuliazar stock y escribir el archivo de inventario
 
         // se crea la comanza normalizada 
@@ -108,3 +143,4 @@ int main() {
 
     return 0;
 }
+    
