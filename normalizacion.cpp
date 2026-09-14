@@ -100,7 +100,13 @@ int main() {
 
 
     FILE* fHist = fopen("comandas_historicas.dat","rb");
-    FILE* fInvt = fopen("inventario.dat", "rb");
+    FILE* fInvt = fopen("inventario.dat", "rb+");
+
+     if (fHist == NULL || fInvt == NULL)
+    {
+        cout << "No se pudieron abrir los archivos base." << endl;
+        return 0;
+    }
 
     Mozo listaMozos[100];
     int cantidadMozos = 0;
@@ -109,7 +115,7 @@ int main() {
     int cantidadReg = 0;
 
     ComandaHistorica comandaHist;
-
+ //  leer todo el historico, armar mozos + registros + actualizar stock 
     while(fread(&comandaHist, sizeof(ComandaHistorica), 1, fHist) == 1){
         int idMozo = buscarIdMozo(listaMozos, cantidadMozos, comandaHist.nombreMozo);
         listaMozos[idMozo - 1].totalComision += comandaHist.comision;
@@ -124,20 +130,81 @@ int main() {
     fseek(fInvt, posProducto * sizeof(Producto), SEEK_SET);   // vuelvo a esa posición
     fwrite(&prod, sizeof(Producto), 1, fInvt);                  // grabo el stock actualizado
 }
-
-        // actuliazar stock y escribir el archivo de inventario
+   // armo el registro normalizado y lo guardo en memoria
+ strcpy(reg[cantidadReg].fecha, comandaHist.fecha);
+        reg[cantidadReg].comanda.idMozo = idMozo;
+        reg[cantidadReg].comanda.codigoProducto = comandaHist.codigoProducto;
+        reg[cantidadReg].comanda.cantidad = comandaHist.cantidad;
+        reg[cantidadReg].comanda.comision = comandaHist.comision;
+        cantidadReg++;
+       
 
         // se crea la comanza normalizada 
     };
 
     fclose(fHist);
     fclose(fInvt);
-
-    //1. ordenar los registros normalizados por fecha y mozo
+// le pongo password inicial = su id como texto
+    for (int i = 0; i < cantidadMozos; i++)
+    {
+        char passwordInicial[20];
+        sprintf(passwordInicial, "%d", listaMozos[i].idMozo);   // convierto el numero a texto
+        otroCodigo(passwordInicial);                              // lo encripto
+        strcpy(listaMozos[i].password, passwordInicial);
+    }
     
-    //2. generar el archivo del día (PLANTILLA DIARIA)
+  FILE* fMozos = fopen("mozos.dat", "wb");
+    for (int i = 0; i < cantidadMozos; i++)
+    {
+        fwrite(&listaMozos[i], sizeof(Mozo), 1, fMozos);
+    }
+    fclose(fMozos);
+    //  ordenar TODOS los registros por fecha y, dentro de cada fecha, por mozo
+    for (int i = 0; i < cantidadReg - 1; i++)
+    {
+        for (int j = 0; j < cantidadReg - 1 - i; j++)
+        {
+            bool debeIntercambiar = false;
 
-    //3. generar archivo MOZOS.dat 
+            int cmpFecha = strcmp(reg[j].fecha, reg[j + 1].fecha);
+
+            if (cmpFecha > 0)
+            {
+                debeIntercambiar = true;
+            }
+            else if (cmpFecha == 0 && reg[j].comanda.idMozo > reg[j + 1].comanda.idMozo)
+            {
+                debeIntercambiar = true;
+            }
+
+            if (debeIntercambiar)
+            {
+                RegistroNormalizado temp = reg[j];
+                reg[j] = reg[j + 1];
+                reg[j + 1] = temp;
+            }
+        }
+    }
+   // generar un archivo por cada dia distinto
+    int i = 0;
+    while (i < cantidadReg)
+    {
+        char fechaActual[11];
+        strcpy(fechaActual, reg[i].fecha);
+
+        char nombreArchivo[30];
+        sprintf(nombreArchivo, "comandas_%s.dat", fechaActual);
+
+        FILE* fDia = fopen(nombreArchivo, "wb");
+
+        while (i < cantidadReg && strcmp(reg[i].fecha, fechaActual) == 0)
+        {
+            fwrite(&reg[i].comanda, sizeof(Comanda), 1, fDia);
+            i++;
+        }
+
+        fclose(fDia);
+    }
 
     cout << "Proceso de normalización completado." << endl;
 
