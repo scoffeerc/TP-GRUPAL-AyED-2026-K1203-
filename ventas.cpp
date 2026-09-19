@@ -67,7 +67,7 @@ int main() {
     int idabuscar;
     int cantidadapedir;
     int len = 300;
-    Comanda arr[len];
+    Comanda ids[len];
     while(fread(&m, sizeof(Mozo), 1, e) == 1 && fread(&f, sizeof(Producto), 1, f) == 1){
         cout << "Ingrese una fecha: ";
         cin >> fecha;
@@ -76,8 +76,8 @@ int main() {
             FILE* g = fopen("comandas_dd-mm-aaaa.dat", "rb+");
 
             cout << "Ingrese el número de mozo: ";
-            if (m.idabuscar == m.idMozo){
-                cin >> m.idabuscar;
+            if (idabuscar == m.idMozo){
+                cin >> idabuscar;
                 c.idMozo = idabuscar;
             } else {
                 cout << "El mozo no existe." << endl;
@@ -93,18 +93,18 @@ int main() {
             
             
             cout << "Busque un producto por su código: ";
-            if (p.codigoabuscar == p.codigo){
-                cin >> p.codigoabuscar;
+            if (codigoabuscar == p.codigo){
+                cin >> codigoabuscar;
                 c.codigoProducto = codigoabuscar;
             } 
 
             cout << "¿Cuántas unidades quiere del producto?: ";
             cin >> cantidadapedir;
 
-            if (p.cantidadapedir < p.stockActual){
+            if (cantidadapedir < p.stockActual){
                 p.stockActual = p.stockActual - cantidadapedir;
                 c.cantidad = cantidadapedir;
-                float comisiontotal = p.precio*p.cantidadapedir*TASA_COMISION;
+                float comisiontotal = p.precio*cantidadapedir*TASA_COMISION;
                 c.comision = comisiontotal;
             }
 
