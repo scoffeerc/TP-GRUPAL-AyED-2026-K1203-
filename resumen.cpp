@@ -6,8 +6,8 @@ using namespace std;
 
 struct Mozo {
     int idMozo;
-    char nombre[8];
-    char password[9];
+    char nombre[50];
+    char password[20];
     float totalComision;
 };
 
@@ -18,58 +18,50 @@ struct Comanda {
     float comision;
 };
 
-
 int main() {
+    char nombreArchivo[40];
+    cout << "Ingrese el nombre del archivo semanal (ej: comandas_semana_s1-06.dat): ";
+    cin >> nombreArchivo;
 
-    FILE* f = fopen("comandas_semana_s1-06.dat", "rb");
-
+    FILE* f = fopen(nombreArchivo, "rb");
     if (!f) {
-        cout << "Error: No se pudo abrir el archivo semanal." << endl;
+        cout << "Error: No se pudo abrir el archivo " << nombreArchivo << endl;
         return 1;
     }
 
-
     Comanda c;
-
     int totalBuffet = 0;
-    
 
-    if(fread(&c, sizeof(Comanda), 1, f) == 1) {
-    bool quedanRegistrosPorLeer = true;
+    cout << "\n===== RESUMEN DE CIERRE SEMANAL =====\n" << endl;
 
-        while(quedanRegistrosPorLeer){
+    if (fread(&c, sizeof(Comanda), 1, f) == 1) {
+        bool quedanRegistros = true;
 
+        while (quedanRegistros) {
             int idActual = c.idMozo;
-
             int cantidadProductos = 0;
             float comisionTot = 0;
 
-            while(quedanRegistrosPorLeer && idActual == c.idMozo) {
-
+            while (quedanRegistros && idActual == c.idMozo) {
                 cantidadProductos += c.cantidad;
-
                 comisionTot += c.comision;
-
                 totalBuffet += c.cantidad;
 
-                if(fread(&c, sizeof(Comanda), 1, f) != 1) {
-                    quedanRegistrosPorLeer = false;
-                };
-            };  
-            cout << "Mozo: " << idActual << endl;
-            cout << "Cantidad de productos vendidos: " << cantidadProductos << endl;
-            cout << "Comision total: $" << comisionTot << endl;
-            cout << endl;
-
-        };
+                if (fread(&c, sizeof(Comanda), 1, f) != 1) {
+                    quedanRegistros = false;
+                }
+            }  
+            cout << "Mozo ID: " << idActual << endl;
+            cout << "  - Cantidad de productos vendidos: " << cantidadProductos << endl;
+            cout << "  - Comision total a pagar: $" << comisionTot << endl;
+            cout << "-------------------------------------" << endl;
+        }
     } else {
         cout << "El archivo esta vacio." << endl;
     }
 
-
-    cout << "Total de productos vendidos por el buffet: " << totalBuffet << endl;
+    cout << "\nTOTAL DE PRODUCTOS VENDIDOS POR EL BUFFET: " << totalBuffet << endl;
     fclose(f);
-
 
     return 0;
 }
