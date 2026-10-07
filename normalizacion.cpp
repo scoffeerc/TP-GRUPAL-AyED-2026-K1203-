@@ -48,8 +48,9 @@ RegistroNormalizado reg[MAX_REGISTROS];
 
 // "dd-mm-aaaa" -> aaaammdd, para comparar fechas como numeros.
 int fechaAEntero(const char* f) {
-    int d = 0, m = 0, a = 0;
-    sscanf(f, "%d-%d-%d", &d, &m, &a);
+    int d = (f[0] - '0') * 10 + (f[1] - '0');
+    int m = (f[3] - '0') * 10 + (f[4] - '0');
+    int a = (f[6] - '0') * 1000 + (f[7] - '0') * 100 + (f[8] - '0') * 10 + (f[9] - '0');
     return a * 10000 + m * 100 + d;
 }
 
